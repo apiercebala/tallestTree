@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="myGame">
+
+<head>
+<link rel="stylesheet" type="text/css" href="interface.css">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+<style>  
+	canvas {
+	    display: block;
+	    margin: 5px auto;
+	    background-color: #c2efc2;
+	  }
+	body{
+		text-align:center;
+	}
+
+	}
+    .button {
+		display:block;
+		text-align:center;
+		margin: 0 auto;
+	}
+</style>
+
+</head>
+
+<body ng-controller="myTree">
+
+	<button type="button" ng-click="addWater(1)">Rain</button>
+	<button type="button" ng-click="addSun(1)">Sun</button>
+	<button type="button" ng-click="addFungi()">Add Fungi</button>
+	<p>
+		<div>Water: {{water}}</div>
+		<div>Sun: {{sun}}</div>
+	</p> 
+
+	<p>Fungi: {{fungi}} </p>
+	<p>Friends: </p>
+
+	<button type="button" ng-click="addFriend(1)">Make Friends</button>
+	<button type="button" ng-click="give(1)">Help a sista out</button>
+
+	<div>
+		 <canvas id="canvas" width="900" height="400">
+		 <script>
+		 //	var canvas = document.getElementByID('canvas');
+		//	var context = canvas.getContext('2d');
+		</script>
+			{{tree}}
+	</div>
+</body>
+
+
+</html>
