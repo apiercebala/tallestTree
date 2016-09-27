@@ -81,5 +81,7 @@ app.get('/tallestTree', function(req,res){
 	res.sendfile('./index.html');
 });
 
-app.listen(8080);
-console.log('Server is listening to http://localhost/ on port 8080…');
+var PORT = process.env.PORT || 8080;
+
+app.listen(PORT);
+console.log("Server is listening to http://localhost/ on port "+PORT);
