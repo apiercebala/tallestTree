@@ -1,0 +1,14 @@
+{
+	"name":"tallestTree",
+	"version":"0.0.0",
+	"description":"Tree-growing clicker game",
+	"main": "server.js",
+	"author": "Aimee Pierce",
+	"dependencies":{
+		"mongoose":"^4.4.12",
+		"express":"^4.13.4",
+		"body-parser":"^1.4.3",
+		"method-override":"^2.1.3",
+		"morgan" : "^1.1.1"
+	}
+}

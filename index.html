@@ -11,22 +11,25 @@
 	    display: block;
 	    margin: 5px auto;
 	    background-color: #c2efc2;
-	  }
+	}
 	body{
 		text-align:center;
 	}
 
-	}
     .button {
 		display:block;
 		text-align:center;
 		margin: 0 auto;
 	}
+
+	#tree{
+		visibility:hidden;
+	}
 </style>
 
 </head>
 
-<body ng-controller="myTree">
+<body ng-controller="myTree" ng-init="load()">
 
 	<button type="button" ng-click="addWater(1)">Rain</button>
 	<button type="button" ng-click="addSun(1)">Sun</button>
@@ -36,20 +39,20 @@
 		<div>Sun: {{sun}}</div>
 	</p> 
 
-	<p>Fungi: {{fungi}} </p>
-	<p>Friends: </p>
+	<p>
+		<div>Fungi: {{fungi}} </div>
+		<div>Friends: {{friends}}</div>
+	</p>
 
-	<button type="button" ng-click="addFriend(1)">Make Friends</button>
-	<button type="button" ng-click="give(1)">Help a sista out</button>
+	<button type="button" ng-click="makeFriends()">Make Friends</button>
+	<!--button type="button" ng-click="give(1)">Help a sista out</button-->
+		<div>
+		 	<img id="tree" width="100" height="100" src="/home/apierce/319/Portfolio1/tree1.png">
+		 </div>
 
-	<div>
-		 <canvas id="canvas" width="900" height="400">
-		 <script>
-		 //	var canvas = document.getElementByID('canvas');
-		//	var context = canvas.getContext('2d');
-		</script>
-			{{tree}}
-	</div>
+	<canvas id="forest" width="900" height="400">
+
+
 </body>
 
 

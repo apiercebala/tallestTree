@@ -15,12 +15,34 @@ var app = angular.module('myGame',[]);
 				$scope.fungi += Math.trunc(Math.random()*(max));
 				$scope.water = 0;
 				$scope.sun = 0;
+			} else {
+				alert("Fungi help you grow, but food and water need to show.");
 			}
 		};
-	}
-]);
-	// app.controller('myCanvas',['$scope', function($scope)
-	// 		newT = new Image();
-	// 		newT.src = 'tree1.png';
-	// 		$scope.tree = newT;
-	// 	])
+		$scope.load = function() {
+			canvas = document.getElementById("forest");
+			context = canvas.getContext('2d');
+			var tree = document.getElementById("tree");
+			context.drawImage(tree,(canvas.width)/2-50,150);
+		};
+		$scope.friends = 0;
+		$scope.makeFriends = function(){
+			if($scope.fungi > $scope.friends){
+				$scope.drawTree();
+				$scope.friends++;
+			} else {
+				alert("Friends without Fungi make an Unfun-guy");
+			}
+		};
+		$scope.drawTree = function(){
+			canvas = document.getElementById("forest");
+			context = canvas.getContext('2d');
+			var tree = document.getElementById("tree");
+			context.drawImage(tree,$scope.random(canvas.width-100,0),$scope.random(canvas.height-141,0));			
+		};
+		$scope.random = function(max,min){
+			return Math.random() * (max - min) + min;
+		};
+}]);
+
+
