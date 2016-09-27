@@ -72,6 +72,10 @@ app.get('/main.js', function(req,res){
 	res.sendfile('./main.js');
 });
 
+app.get('interface.css', function(req,res){
+	res.sendfile('./interface.css');
+});
+
 app.get('/tree1.png', function(req,res){
 	res.sendfile('./tree1.png');
 });
