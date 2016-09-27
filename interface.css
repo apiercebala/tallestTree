@@ -1,0 +1,90 @@
+	canvas {
+	    display: block;
+	    margin: 5px auto;
+	    background-color: #c2efc2;
+	}
+	body{
+		text-align:center;
+        font-family: Arial, Helvetica, sans-serif;
+	}
+
+    div1{
+        color:#00ccff;
+    }
+    div2{
+        color:#ffcc00;
+    }
+    div3{
+        color:black;
+    }
+    div{
+        color:#bfbfbf;
+    }
+
+    div.div{
+        margin:20px;
+        margin-left:500px;
+        margin-right:500px;
+        height:150px;
+        border: 25px solid #cc66ff;
+        border-radius: 5px;
+        padding-bottom: 50px;
+        padding-top: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    button{
+        border-radius: 8px;
+        text-align: center;
+        padding: 15px 32px;
+        display: inline-block;
+        font-size: 16px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        color: white;
+    }
+
+    .button1:hover {
+        background-color: #00ccff; 
+        color: white;
+    }
+    .button2:hover {
+        background-color: #ffcc00; 
+        color:white;
+    }
+    .button3:hover {
+        background-color: black; 
+        color: white;
+    }
+    .button4:hover {
+        background-color: #bfbfbf; 
+        color: white;
+    }
+
+    .button1 {
+        background-color : white;
+        color: black;
+        border: 2px solid #00ccff;
+	}
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #ffcc00;
+	}
+    .button3 {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+	}
+
+    .button4{
+        background-color: white;
+        color: black;
+        border: 2px solid #bfbfbf;
+    }
+
+	#tree{
+		visibility:hidden;
+	}
