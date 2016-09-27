@@ -5,51 +5,39 @@
 <link rel="stylesheet" type="text/css" href="interface.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
-<style>  
-	canvas {
-	    display: block;
-	    margin: 5px auto;
-	    background-color: #c2efc2;
-	}
-	body{
-		text-align:center;
-	}
-
-    .button {
-		display:block;
-		text-align:center;
-		margin: 0 auto;
-	}
-
-	#tree{
-		visibility:hidden;
-	}
-</style>
-
 </head>
 
 <body ng-controller="myTree" ng-init="load()">
 
-	<button type="button" ng-click="addWater(1)">Rain</button>
-	<button type="button" ng-click="addSun(1)">Sun</button>
-	<button type="button" ng-click="addFungi()">Add Fungi</button>
-	<p>
-		<div>Water: {{water}}</div>
-		<div>Sun: {{sun}}</div>
-	</p> 
+	<button class="button1" ng-click="addWater(1)">Rain</button>
+	<button class="button2" ng-click="addSun(1)">Sun</button>
+	<button class="button3" ng-click="addFungi()">Add Fungi</button>
 
-	<p>
-		<div>Fungi: {{fungi}} </div>
-		<div>Friends: {{friends}}</div>
-	</p>
+    <div class="div">
+        <p>
+            <div1>Water: {{water}}</div1>
+        </p>
+        <p>
+            <div2>Sun: {{sun}}</div2>
+        </p>
+        <p>
 
-	<button type="button" ng-click="makeFriends()">Make Friends</button>
+        </p>
+        <p>
+            <div3>Fungi: {{fungi}} </div3>
+        </p>
+        <p>
+            <div4>Friends: {{friends}}</div4>
+        </p>
+    </div>
+
+	<button class="button4" ng-click="makeFriends()">Make Friends</button>
 	<!--button type="button" ng-click="give(1)">Help a sista out</button-->
 		<div>
 		 	<img id="tree" width="100" height="100" src="/tree1.png">
 		 </div>
 
-	<canvas id="forest" width="900" height="400">
+	<canvas id="forest" width="900" height="400"><
 
 <script type="text/javascript" src="/main.js"></script>
 </body>
