@@ -67,6 +67,12 @@ app.delete('/api/trees/:trees_id', function(req,res){
 // app.use(express.json());       // to support JSON-encoded bodies
 // app.use(express.urlencoded()); // to support URL-encoded bodies
 
+
+// application
+app.get('/tallestTree', function(req,res){
+	res.sendfile('./index.html');
+});
+
 //get main.js controller
 app.get('/main.js', function(req,res){
 	res.sendfile('./main.js');
@@ -78,10 +84,6 @@ app.get('/tree1.png', function(req,res){
 	res.sendfile('./tree1.png');
 });
 
-// application
-app.get('/tallestTree', function(req,res){
-	res.sendfile('./index.html');
-});
 
 var PORT = process.env.PORT || 8080;
 
