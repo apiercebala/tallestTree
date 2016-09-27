@@ -1,9 +1,10 @@
-var http = require("http");
+//var http = require("http");
 var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
+
 var morgan = require('morgan');
-var bodyParser = require('body_parser');
+var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 mongoose.connect('mongodb://glittersloth:portfolio1319@ds041516.mlab.com:41516/forest');
@@ -11,6 +12,7 @@ mongoose.connect('mongodb://glittersloth:portfolio1319@ds041516.mlab.com:41516/f
 var trees = mongoose.model('trees',{
 	text : String
 });
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
 //get all existing trees
 app.get('/api/trees', function(req,res){
@@ -26,8 +28,9 @@ app.get('/api/trees', function(req,res){
 
 //create a tree and send all trees
 app.post('/api/trees', function(req,res){
+	console.log(req.body.forest);
 	trees.create({
-		text : req.body.text,
+		text : req.body.forest,
 		done : false
 	}, function(err,todo){
 		if(err){
@@ -58,14 +61,25 @@ app.delete('/api/trees/:trees_id', function(req,res){
 	});
 });
 
-// application
-ap.get('*', fuction(req,res){
-	res.sendfile('./home/apierce/319/Portfolio1/index.html');
+// app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+//   extended: true
+// }));
+// app.use(express.json());       // to support JSON-encoded bodies
+// app.use(express.urlencoded()); // to support URL-encoded bodies
+
+//get main.js controller
+app.get('/main.js', function(req,res){
+	res.sendfile('./main.js');
 });
 
-http.createServer(function(request, response) {  
-  response.writeHead(200, {"Content-Type": "text/plain"});  
-  response.write("Hello from the Node.js server!");  
-  response.end();
-}).listen(8080);
+app.get('/tree1.png', function(req,res){
+	res.sendfile('./tree1.png');
+});
+
+// application
+app.get('/tallestTree', function(req,res){
+	res.sendfile('./index.html');
+});
+
+app.listen(8080);
 console.log('Server is listening to http://localhost/ on port 8080…');
