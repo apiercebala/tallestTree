@@ -6,6 +6,7 @@ var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var path = require('path');
 
 mongoose.connect('mongodb://glittersloth:portfolio1319@ds041516.mlab.com:41516/forest');
 
@@ -13,9 +14,13 @@ var trees = mongoose.model('trees',{
 	text : String
 });
 
+
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-app.use(express.static(__dirname+'/public'));
+//get css styles
+app.get('/interface.css', function(req,res){
+	res.sendfile('./interface.css');
+});
 
 // application
 app.get('/tallestTree', function(req,res){
@@ -26,7 +31,6 @@ app.get('/tallestTree', function(req,res){
 app.get('/main.js', function(req,res){
 	res.sendfile('./main.js');
 });
-
 
 
 app.get('/tree1.png', function(req,res){
