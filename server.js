@@ -57,7 +57,6 @@ app.get('/api/trees', function(req,res){
 
 //create a tree and send all trees
 app.post('/api/trees', function(req,res){
-	console.log(req.body.forest);
 	trees.create({
 		text : req.body.forest,
 		done : false
