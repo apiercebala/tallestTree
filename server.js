@@ -15,7 +15,7 @@ var trees = mongoose.model('trees',{
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-app.use(express.static(__dirname+'/interface.css'));
+app.use(express.static(__dirname+'/public'));
 
 // application
 app.get('/tallestTree', function(req,res){
