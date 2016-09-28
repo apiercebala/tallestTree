@@ -12,7 +12,30 @@ mongoose.connect('mongodb://glittersloth:portfolio1319@ds041516.mlab.com:41516/f
 var trees = mongoose.model('trees',{
 	text : String
 });
+
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
+
+// application
+app.get('/tallestTree', function(req,res){
+	res.sendfile('./index.html');
+});
+
+//get main.js controller
+app.get('/main.js', function(req,res){
+	res.sendfile('./main.js');
+});
+
+app.use(express.static('./interface.css'));
+
+app.get('/tree1.png', function(req,res){
+	res.sendfile('./tree1.png');
+});
+
+
+var PORT = process.env.PORT || 8080;
+
+app.listen(PORT);
+console.log("Server is listening to http://localhost/ on port "+PORT);
 
 //get all existing trees
 app.get('/api/trees', function(req,res){
@@ -61,31 +84,3 @@ app.delete('/api/trees/:trees_id', function(req,res){
 	});
 });
 
-// app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-//   extended: true
-// }));
-// app.use(express.json());       // to support JSON-encoded bodies
-// app.use(express.urlencoded()); // to support URL-encoded bodies
-
-
-// application
-app.get('/tallestTree', function(req,res){
-	res.sendfile('./index.html');
-});
-
-//get main.js controller
-app.get('/main.js', function(req,res){
-	res.sendfile('./main.js');
-});
-
-app.use(express.static('/interface.css'));
-
-app.get('/tree1.png', function(req,res){
-	res.sendfile('./tree1.png');
-});
-
-
-var PORT = process.env.PORT || 8080;
-
-app.listen(PORT);
-console.log("Server is listening to http://localhost/ on port "+PORT);
