@@ -1,5 +1,25 @@
 var app = angular.module('myGame',[]);
-	app.controller('myTree', ['$scope','$http', function ($scope,$http){
+	app.controller('mySignUp',['$scope','$http',function($scope,$http){
+		$scope.signup = function(user){
+			console.log(user);
+			//$http.post('/api/users',JSON.stringify(user));
+			$http({
+				url:'/api/users',
+				method:"POST",
+				params:{username:user.name, password:user.password}
+			});
+		};
+	}]);
+	app.controller('mySignIn',['$scope','$http','$q',function($scope,$http,$q){
+		$scope.signin = function(user){
+			var defer = $q.defer();
+			$http.get('/api/users',{params: JSON.stringify(user)}).success(function(data){
+				defer.resolve(data);
+			});
+			return defer.user;
+		};
+	}]);
+	app.controller('myTree', ['$scope','$http',function ($scope,$http){
 		$http.get('/api/trees')
 			.success(function(data){
 				$scope.trees = data;
@@ -42,9 +62,10 @@ var app = angular.module('myGame',[]);
 		$scope.makeFriends = function(){
 			if($scope.fungi > $scope.friends){
 				$scope.drawTree();
-				var tree = {"forest":"tree"};
-				$scope.friends++;
+				var tree = {"forest":"tree", "fungi":$scope.fungi, "x":x, "y":y};
 				$http.createTree(tree);
+				$scope.friends++;
+				$scope.fungi = 0;
 			} else {
 				alert("Friends without Fungi make an Unfun-guy");
 			}
@@ -53,12 +74,16 @@ var app = angular.module('myGame',[]);
 			canvas = document.getElementById("forest");
 			context = canvas.getContext('2d');
 			var tree = document.getElementById("tree");
-			context.drawImage(tree,$scope.random(canvas.width-100,0),$scope.random(canvas.height-141,0));			
+			var x = $scope.random(canvas.width-100,0);
+			var y = $scope.random(canvas.height-141,0);
+			context.drawImage(tree,x,y);
+			var location = {"x":x, "y":y};
+			return location;			
 		};
 		$scope.random = function(max,min){
 			return Math.random() * (max - min) + min;
 		};
-}]);
+	}]);
 
 
 

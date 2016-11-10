@@ -7,12 +7,9 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var path = require('path');
+var Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://glittersloth:portfolio1319@ds041516.mlab.com:41516/forest');
-
-var trees = mongoose.model('trees',{
-	text : String
-});
+mongoose.connect('mongodb://glittersloth2:portfolio2319@ds149577.mlab.com:49577/portfolio2');
 
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -43,15 +40,37 @@ var PORT = process.env.PORT || 8080;
 app.listen(PORT);
 console.log("Server is listening to http://localhost/ on port "+PORT);
 
-//get all existing trees
-app.get('/api/trees', function(req,res){
+var userSchema = new Schema({
+	username: String,
+	password: String,
+	trees: [{id: Number}]
+});
 
-	trees.find(function(err, trees){
+var user = mongoose.model('User',userSchema);
+
+//return user if user matches req user
+app.get('/api/users', function(req,res){
+	var myUsername = req.body.user.name;
+	var pass = req.body.user.password;
+	user.find({username: myUsername, password: pass},function(err, users){
 		if(err){
 			res.send(err);
 		}
+		res.render('user',{username: users.username, pass: users.password});
+	});
+});
 
-		res.json(trees);
+//post user data to database
+app.post('/api/users', function(req,res){
+	var myUsername = req.body.name;
+	var pass = req.body.password;
+	user.create({
+		username: myUsername,
+		password: pass,
+	}, function(err,todo){
+		if(err){
+			res.send(err);
+		}
 	});
 });
 

@@ -1,5 +1,5 @@
 angular.module("services",[])
 	.value("water",0)
-	.factory("addWater",["water", function(water){
+	.factory("random",["water", function(max,min){
 		return water++;
 	}]);
