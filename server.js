@@ -50,13 +50,13 @@ var user = mongoose.model('User',userSchema);
 
 //return user if user matches req user
 app.get('/api/users', function(req,res){
-	var myUsername = req.body.user.name;
-	var pass = req.body.user.password;
-	user.find({username: myUsername, password: pass},function(err, users){
+	var myUsername = req.body.username;
+	var pass = req.body.password;
+	user.find({username: myUsername, password: pass},function(err, user){
 		if(err){
-			res.send(err);
+			res.json({"error":err});
 		}
-		res.render('user',{username: users.username, pass: users.password});
+		res.json({"username": myUsername, "password": pass});
 	});
 });
 
@@ -69,12 +69,13 @@ app.post('/api/users', function(req,res){
 		password: pass,
 	}, function(err,todo){
 		if(err){
-			res.send(err);
+			res.json({"error":err});
 		}
+		res.json({"data": myUsername});
 	});
 });
 
-//create a tree and send all trees
+//create a tree and send all trng-hide="showlogin"ees
 app.post('/api/trees', function(req,res){
 	trees.create({
 		text : req.body.forest,
@@ -83,7 +84,7 @@ app.post('/api/trees', function(req,res){
 		if(err){
 			res.send(err);
 		}
-		
+
 		trees.find(function(err,trees){
 			if(err)
 				res.send(err)
