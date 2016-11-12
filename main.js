@@ -3,14 +3,13 @@ var app = angular.module('myGame',[]);
 		var postedUser = false;
 		var validUser = false;
 		return {
-			// getPostedUser : function(){
-			// 	return postedUser;
-			// },
-			// getValidUser : function (){
-			// 	return validUser;
-			// }
 			postedUser: false,
-			validUser: false
+			validUser: false,
+			currentUser: {
+				username: "user",
+				password: "password",
+				trees: []
+			}
 		}
 	});
 	app.controller('mySignUp',['$scope','$http','sharedVars',function($scope,$http,sharedVars){
@@ -34,27 +33,29 @@ var app = angular.module('myGame',[]);
 		};
 
 		$scope.signin = function(user){
-			//var defer = $q.defer();
 			var myLoginData = "";
 			var config = {
 				params: {
-					username: user.Lname,
 					password: user.Lpassword
 				}
 			}
-			$http.get('/api/users',config).success(function(data){
+			//get user input, compare to database info
+			$http.get('/api/users/'+user.Lname,config).success(function(data){
 				myLoginData = data;
 				console.log(myLoginData);
 				console.log("login successful");
 				$scope.validUser = true;
 				$scope.postedUser = false;
 				sharedVars.validUser = true;
+				sharedVars.currentUser.username = data.username;
+				sharedVars.currentUser.password = data.password;
+				sharedVars.currentUser.trees = data.trees;
 			});
 
 		};
 	}]);
 	app.controller('myTree', ['$scope','$http', 'sharedVars',function ($scope,$http,sharedVars){
-		// $http.get('/api/trees')
+		// $http.get('/api/users')
 		// 	.success(function(data){
 		// 		$scope.trees = data;
 		// 		console.log(data);
@@ -62,16 +63,23 @@ var app = angular.module('myGame',[]);
 		// 	.error(function(data){
 		// 		console.log('Error: '+data);
 		// 	});
+
 		$scope.sharedVars = sharedVars;
-		//$scope.validUser = sharedVars.validUser;
-		// $scope.$watch('validUser', function(newValue, oldValue) {
-		// 	sharedVars.validUser = newValue;
-		// 	console.log($scope.validUser);
-		// });
-		//$scope.validUser = sharedVars.validUser;
-		console.log($scope.validUser);
-		$http.createTree = function(text){
-			$http.post('/api/trees',JSON.stringify(text));
+		console.log($scope.sharedVars.currentUser);
+
+		$scope.populateTrees = function(){
+
+		};
+
+		$scope.treeId = function(){
+			$http.get('/api/users/'+$scope.sharedVars.currentUser+'/trees').success(function(data){
+				$scope.numberOfTrees = data.trees.length;
+			});
+			return $scope.numberOfTrees;
+		};
+
+		$scope.createTree = function(text){
+			$http.post('/api/users/'+$scope.sharedVars.currentUser+'/trees',JSON.stringify(text));
 		};
 
 		$scope.water = 0;
@@ -103,8 +111,9 @@ var app = angular.module('myGame',[]);
 		$scope.makeFriends = function(){
 			if($scope.fungi > $scope.friends){
 				$scope.drawTree();
-				var tree = {"forest":"tree", "fungi":$scope.fungi, "x":x, "y":y};
-				$http.createTree(tree);
+				//var treeId = $scope.treeId();
+				var tree = {"fungi":$scope.fungi};
+				$scope.createTree(tree);
 				$scope.friends++;
 				$scope.fungi = 0;
 			} else {
@@ -118,12 +127,13 @@ var app = angular.module('myGame',[]);
 			var x = $scope.random(canvas.width-100,0);
 			var y = $scope.random(canvas.height-141,0);
 			context.drawImage(tree,x,y);
-			var location = {"x":x, "y":y};
-			return location;
+			// var location = {"x":x, "y":y};
+			// return location;
 		};
 		$scope.random = function(max,min){
 			return Math.random() * (max - min) + min;
 		};
+
 	}]);
 
 

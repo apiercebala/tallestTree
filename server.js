@@ -43,7 +43,7 @@ console.log("Server is listening to http://localhost/ on port "+PORT);
 var userSchema = new Schema({
 	username: String,
 	password: String,
-	trees: [{id: Number}]
+	trees: [{fungi: Number}]
 });
 
 var user = mongoose.model('User',userSchema);
@@ -60,6 +60,40 @@ app.get('/api/users', function(req,res){
 	});
 });
 
+app.get('/api/users/:username', function(req, res) {
+	var username = req.params.username;
+	var pass = req.query.password;
+
+	user.find({username: username},function(err, users){
+		var usr = users[0];
+		console.log(usr);
+		if(err){
+			res.json({"error":err});
+			return;
+		}
+
+		if (usr.password !== pass) {
+			res.json({"error": "invalid passowrd"});
+			return;
+		}
+		res.json({"username": usr.username, "password": usr.password});
+	});
+});
+
+//get trees of given user
+app.get('/api/users/:username/trees', function(req, res) {
+	var username = req.params.username;
+
+	user.find({username: username}, function(err, users) {
+		var usr = users[0];
+		if (err) {
+			res.json({"error": err});
+			return;
+		}
+		res.json({"trees": usr.trees});
+	});
+});
+
 //post user data to database
 app.post('/api/users', function(req,res){
 	var myUsername = req.body.name;
@@ -73,6 +107,20 @@ app.post('/api/users', function(req,res){
 		}
 		res.json({"data": myUsername});
 	});
+});
+
+//post tree to given user
+app.post('/api/users/:username/trees', function(req, res) {
+	var username = req.params.username;
+	var tree = req.body;
+	var fungi = tree.fungi;
+	user.findOne({"username": username},function(err,users){
+		users.trees.push({"fungi":fungi});
+		users.markModified('array');
+    	users.save();
+    	res.json({"trees": users.trees});
+	});
+
 });
 
 //create a tree and send all trng-hide="showlogin"ees
