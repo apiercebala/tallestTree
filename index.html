@@ -10,7 +10,7 @@
 
 <body>
 
-<div ng-controller="mySignUp" ng-init="load()">
+<div ng-controller="mySignUp">
     <div ng-hide="postedUser || validUser">
         <form id="form" name="form">
             <p>Sign up:</p>
@@ -74,11 +74,11 @@
             <div3>Fungi: {{fungi}} </div3>
         </p>
         <p>
-            <div4>Friends: {{friends}}</div4>
+            <div4>Trees: {{sharedVars.currentUser.trees.length}}</div4>
         </p>
     </div>
 
-	<button class="button4" ng-click="makeFriends()">Make Friends</button>
+	<button class="button4" ng-click="makeFriends()">Create Tree</button>
 		<div>
 		 	<img id="tree" width="100" height="100" src="tree1.png">
 		 </div>

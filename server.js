@@ -66,7 +66,7 @@ app.get('/api/users/:username', function(req, res) {
 
 	user.find({username: username},function(err, users){
 		var usr = users[0];
-		console.log(usr);
+		//console.log(usr);
 		if(err){
 			res.json({"error":err});
 			return;
@@ -76,7 +76,7 @@ app.get('/api/users/:username', function(req, res) {
 			res.json({"error": "invalid passowrd"});
 			return;
 		}
-		res.json({"username": usr.username, "password": usr.password});
+		res.json({"username": usr.username, "password": usr.password, "trees": usr.trees});
 	});
 });
 
@@ -114,7 +114,12 @@ app.post('/api/users/:username/trees', function(req, res) {
 	var username = req.params.username;
 	var tree = req.body;
 	var fungi = tree.fungi;
-	user.findOne({"username": username},function(err,users){
+	user.find({"username": username},function(err,records){
+		if(err){
+			res.json({"error":err});
+			return;
+		}
+		var users = records[0];
 		users.trees.push({"fungi":fungi});
 		users.markModified('array');
     	users.save();

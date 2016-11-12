@@ -4,19 +4,24 @@ var app = angular.module('myGame',[]);
 		var validUser = false;
 		return {
 			postedUser: false,
+			totalTrees: 0,
 			validUser: false,
 			currentUser: {
 				username: "user",
 				password: "password",
 				trees: []
+			},
+			updateVar: function(newValue){
+				return newValue;
 			}
-		}
+		};
+
 	});
 	app.controller('mySignUp',['$scope','$http','sharedVars',function($scope,$http,sharedVars){
 
 		$scope.postedUser = sharedVars.postedUser;
 		$scope.validUser = sharedVars.validUser;
-		console.log($scope.validUser);
+		console.log($scope.currentUser);
 		$scope.signup = function(user){
 			var myData = "";
 			$http.post('/api/users',JSON.stringify(user)).success(function(data,status){
@@ -50,8 +55,31 @@ var app = angular.module('myGame',[]);
 				sharedVars.currentUser.username = data.username;
 				sharedVars.currentUser.password = data.password;
 				sharedVars.currentUser.trees = data.trees;
+				sharedVars.totalTrees = sharedVars.currentUser.trees.length;
+
+				for (var i = 0; i < sharedVars.currentUser.trees.length; i++){
+					$scope.drawTree();
+				}
 			});
 
+		};
+		// $scope.populateTrees = function(){
+		// 	for (var i = 0; i < $scope.sharedVars.currentUser.trees.length; i++){
+		// 		$scope.drawTree();
+		// 	}
+		// };
+		$scope.drawTree = function(){
+			canvas = document.getElementById("forest");
+			context = canvas.getContext('2d');
+			var tree = document.getElementById("tree");
+			var x = $scope.random(canvas.width-100,0);
+			var y = $scope.random(canvas.height-141,0);
+			context.drawImage(tree,x,y);
+			// var location = {"x":x, "y":y};
+			// return location;
+		};
+		$scope.random = function(max,min){
+			return Math.random() * (max - min) + min;
 		};
 	}]);
 	app.controller('myTree', ['$scope','$http', 'sharedVars',function ($scope,$http,sharedVars){
@@ -65,26 +93,24 @@ var app = angular.module('myGame',[]);
 		// 	});
 
 		$scope.sharedVars = sharedVars;
-		console.log($scope.sharedVars.currentUser);
-
-		$scope.populateTrees = function(){
-
-		};
 
 		$scope.treeId = function(){
-			$http.get('/api/users/'+$scope.sharedVars.currentUser+'/trees').success(function(data){
+			$http.get('/api/users/'+$scope.sharedVars.currentUser.username+'/trees').success(function(data){
 				$scope.numberOfTrees = data.trees.length;
 			});
 			return $scope.numberOfTrees;
 		};
 
 		$scope.createTree = function(text){
-			$http.post('/api/users/'+$scope.sharedVars.currentUser+'/trees',JSON.stringify(text));
+			$http.post('/api/users/'+$scope.sharedVars.currentUser.username+'/trees',JSON.stringify(text)).success(function(data){
+				sharedVars.currentUser.trees = data.trees;
+			});
 		};
 
 		$scope.water = 0;
 		$scope.sun = 0;
 		$scope.addWater = function(num){
+						console.log($scope.sharedVars.totalTrees);
 			$scope.water += num;
 		};
 		$scope.addSun = function(num){
@@ -107,14 +133,15 @@ var app = angular.module('myGame',[]);
 			var tree = document.getElementById("tree");
 			context.drawImage(tree,(canvas.width)/2-50,150);
 		};
-		$scope.friends = 0;
+
+		//$scope.friends =
+
 		$scope.makeFriends = function(){
-			if($scope.fungi > $scope.friends){
+			if($scope.fungi > sharedVars.currentUser.trees.length){
 				$scope.drawTree();
 				//var treeId = $scope.treeId();
 				var tree = {"fungi":$scope.fungi};
 				$scope.createTree(tree);
-				$scope.friends++;
 				$scope.fungi = 0;
 			} else {
 				alert("Friends without Fungi make an Unfun-guy");
