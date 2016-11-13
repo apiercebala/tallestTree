@@ -1,4 +1,4 @@
-angular.module('messenger', ['ngRoute'])
+angular.module('messenger', ['ngRoute','sharedVars'])
 .config(function ($routeProvider) {
     $routeProvider.when("/send", {
         controller: "sendController",
@@ -14,8 +14,9 @@ angular.module('messenger', ['ngRoute'])
    //     alert("hello");
     //}
 })
-.controller('messengerController', function ($scope) {
-})
+.controller('messengerController', ['sharedVars',function ($scope) {
+}]);
+
 .controller('sendController', ['$scope','$http', function ($scope,$http) {
     $scope.header = "Send Message";
     $scope.send = function () {

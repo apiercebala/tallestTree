@@ -4,8 +4,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="interface.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="path/to/angular-route.js"></script>
-
 
 </head>
 
@@ -97,8 +95,9 @@
     	<div>
 		 	<img id="tree" width="100" height="100" src="tree1.png">
 		 </div>
+</div>
 
-    <div ng-app="messenger" ng-controller="messengerController">
+<div ng-app="messenger" ng-controller="messengerController" ng-show="sharedVars.validUser">
 
         <a href="#/send"> Send Message</a>
         <a href="#/inbox"> Inbox </a><br /><br />
