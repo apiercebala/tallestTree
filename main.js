@@ -77,6 +77,7 @@ var app = angular.module('myGame',[]);
 			return Math.random() * (max - min) + min;
 		};
 	}]);
+
 	app.controller('myTree', ['$scope','$http','$window','sharedVars',function ($scope,$http,$window,sharedVars){
 
 
@@ -132,6 +133,7 @@ var app = angular.module('myGame',[]);
 				alert("Friends without Fungi make an Unfun-guy");
 			}
 		};
+
 		$scope.drawTree = function(){
 			canvas = document.getElementById("forest");
 			context = canvas.getContext('2d');
@@ -140,13 +142,29 @@ var app = angular.module('myGame',[]);
 			var y = $scope.random(canvas.height-141,0);
 			context.drawImage(tree,x,y);
 		};
+
 		$scope.random = function(max,min){
 			return Math.random() * (max - min) + min;
 		};
 
 		$scope.logout = function(){
 			$window.location.reload();
+		};
+
+		$scope.addHealth = function(user,tree) {
+			console.log("sfdgfd");
+			tree.fungi += $scope.fungi;
+			$scope.fungi = 0;
+			console.log(tree.fungi);
+			$scope.updateUser();
+		};
+
+		$scope.updateUser = function(){
+			$http.post('/api/users/'+$scope.sharedVars.currentUser.username+'/update',sharedVars.currentUser).success(function(data){
+				console.log(data);
+			});
 		}
+
 	}]);
 
 

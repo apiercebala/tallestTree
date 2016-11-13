@@ -132,6 +132,24 @@ app.post('/api/users/:username/trees', function(req, res) {
 
 });
 
+app.post('/api/users/:username/update', function(req,res){
+	var username = req.params.username;
+	console.log(username);
+	user.find({"username":username},function(err,records){
+		if(err){
+			res.json({"error":err});
+			return;
+		}
+		var users = records[0];
+		users.username = req.body.username;
+		users.password = req.body.password;
+		users.trees = req.body.trees;
+
+		users.save();
+		res.json({"data": users});
+	})
+});
+
 //create a tree and send all trng-hide="showlogin"ees
 app.post('/api/trees', function(req,res){
 	trees.create({
