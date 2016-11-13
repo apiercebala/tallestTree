@@ -44,6 +44,7 @@ var app = angular.module('myGame',[]);
 					password: user.Lpassword
 				}
 			}
+
 			//get user input, compare to database info
 			$http.get('/api/users/'+user.Lname,config).success(function(data){
 				myLoginData = data;

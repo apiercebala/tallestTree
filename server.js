@@ -29,6 +29,10 @@ app.get('/main.js', function(req,res){
 	res.sendfile('./main.js');
 });
 
+//get messenger.js controller
+app.get('/messenger.js',function(req,res){
+    res.sendfile('./messenger.js');
+});
 
 app.get('/tree1.png', function(req,res){
 	res.sendfile('./tree1.png');
@@ -161,4 +165,8 @@ app.delete('/api/trees/:trees_id', function(req,res){
 		});
 	});
 });
+
+app.post(){
+
+}
 
