@@ -21,6 +21,9 @@
     div{
         color:#bfbfbf;
     }
+    .treeTable{
+        margin-top: 20px;
+    }
 
     .info{
         margin:20px;
@@ -48,6 +51,18 @@
         border: none;
         color: white;
         align-content: center;
+    }
+    li{
+        margin-bottom: 2px;
+    }
+
+    #addFungiToTree {
+        align-content: center;
+        padding: 5px 7px;
+        font-size: 10px;
+        background-color: #e1e1ea;
+        color: black;
+        border: 1px solid #c3c3d5;
     }
 
     .button1:hover {

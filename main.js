@@ -94,8 +94,8 @@ var app = angular.module('myGame',[]);
 			});
 		};
 
-		$scope.water = 0;
-		$scope.sun = 0;
+		$scope.water = 100;
+		$scope.sun = 100;
 		$scope.addWater = function(num){
 						console.log($scope.sharedVars.totalTrees);
 			$scope.water += num;

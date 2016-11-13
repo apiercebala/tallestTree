@@ -81,7 +81,12 @@
         </p>
     </div>
 	<canvas id="forest" width="600" height="300"></canvas>
-    <div ng-repeat="x in sharedVars.currentUser.trees">{{x}}</div>
+    <h2>Trees</h2>
+    <div id="treeTable">
+        <ul>
+            <li ng-repeat="x in sharedVars.currentUser.trees"><button id="addFungiToTree">Add Fungi to Tree</button><strong>Health:</strong><progress value={{x.fungi}} max="10"></progress></li>
+        </ul>
+    </div>
 <!--         <table id="treeList">
             <tr>
                 <th>Name</th>
