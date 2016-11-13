@@ -2,6 +2,7 @@
 	    display: block;
 	    margin: 5px auto;
 	    background-color: #c2efc2;
+        float:left;
 	}
 	body{
 		text-align:center;
@@ -21,22 +22,24 @@
         color:#bfbfbf;
     }
 
-    div.div{
+    .info{
         margin:20px;
-        margin-left:500px;
-        margin-right:500px;
+        margin-left:30px;
+        margin-right:20px;
         height:150px;
+        width:100px;
         border: 25px solid #cc66ff;
         border-radius: 5px;
-        padding-bottom: 50px;
+        padding-bottom: 10px;
         padding-top: 50px;
         padding-left: 50px;
         padding-right: 50px;
+        float: left;
+
     }
 
     button{
         border-radius: 8px;
-        text-align: center;
         padding: 15px 32px;
         display: inline-block;
         font-size: 16px;
@@ -44,22 +47,23 @@
         cursor: pointer;
         border: none;
         color: white;
+        align-content: center;
     }
 
     .button1:hover {
-        background-color: #00ccff; 
+        background-color: #00ccff;
         color: white;
     }
     .button2:hover {
-        background-color: #ffcc00; 
+        background-color: #ffcc00;
         color:white;
     }
     .button3:hover {
-        background-color: black; 
+        background-color: black;
         color: white;
     }
     .button4:hover {
-        background-color: #bfbfbf; 
+        background-color: #bfbfbf;
         color: white;
     }
 
@@ -67,6 +71,7 @@
         background-color : white;
         color: black;
         border: 2px solid #00ccff;
+        margin-left: 20px;
 	}
     .button2 {
         background-color: white;
@@ -83,6 +88,13 @@
         background-color: white;
         color: black;
         border: 2px solid #bfbfbf;
+        margin-right: 20px;
+    }
+    .logout{
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        float:right;
     }
 
 	#tree{

@@ -63,11 +63,7 @@ var app = angular.module('myGame',[]);
 			});
 
 		};
-		// $scope.populateTrees = function(){
-		// 	for (var i = 0; i < $scope.sharedVars.currentUser.trees.length; i++){
-		// 		$scope.drawTree();
-		// 	}
-		// };
+
 		$scope.drawTree = function(){
 			canvas = document.getElementById("forest");
 			context = canvas.getContext('2d');
@@ -75,22 +71,13 @@ var app = angular.module('myGame',[]);
 			var x = $scope.random(canvas.width-100,0);
 			var y = $scope.random(canvas.height-141,0);
 			context.drawImage(tree,x,y);
-			// var location = {"x":x, "y":y};
-			// return location;
 		};
 		$scope.random = function(max,min){
 			return Math.random() * (max - min) + min;
 		};
 	}]);
-	app.controller('myTree', ['$scope','$http', 'sharedVars',function ($scope,$http,sharedVars){
-		// $http.get('/api/users')
-		// 	.success(function(data){
-		// 		$scope.trees = data;
-		// 		console.log(data);
-		// 	})
-		// 	.error(function(data){
-		// 		console.log('Error: '+data);
-		// 	});
+	app.controller('myTree', ['$scope','$http','$window','sharedVars',function ($scope,$http,$window,sharedVars){
+
 
 		$scope.sharedVars = sharedVars;
 
@@ -120,7 +107,7 @@ var app = angular.module('myGame',[]);
 		$scope.addFungi = function(){
 			if($scope.water > 10 && $scope.sun > 10){
 				var max = ($scope.water+$scope.sun)/10;
-				$scope.fungi++;//= Math.trunc(Math.random()*(max));
+				$scope.fungi++;
 				$scope.water -= 10;
 				$scope.sun -= 10;
 			} else {
@@ -134,12 +121,9 @@ var app = angular.module('myGame',[]);
 			context.drawImage(tree,(canvas.width)/2-50,150);
 		};
 
-		//$scope.friends =
-
 		$scope.makeFriends = function(){
 			if($scope.fungi > sharedVars.currentUser.trees.length){
 				$scope.drawTree();
-				//var treeId = $scope.treeId();
 				var tree = {"fungi":$scope.fungi};
 				$scope.createTree(tree);
 				$scope.fungi = 0;
@@ -154,13 +138,14 @@ var app = angular.module('myGame',[]);
 			var x = $scope.random(canvas.width-100,0);
 			var y = $scope.random(canvas.height-141,0);
 			context.drawImage(tree,x,y);
-			// var location = {"x":x, "y":y};
-			// return location;
 		};
 		$scope.random = function(max,min){
 			return Math.random() * (max - min) + min;
 		};
 
+		$scope.logout = function(){
+			$window.location.reload();
+		}
 	}]);
 
 
