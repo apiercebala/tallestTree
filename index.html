@@ -53,12 +53,13 @@
     </div>
 </div>
 
-<div ng-controller="myTree" ng-show="sharedVars.validUser">
+<div ng-controller="myTree" >
     <div>
 	<button class="button1" ng-click="addWater(1)">Rain</button>
 	<button class="button2" ng-click="addSun(1)">Sun</button>
 	<button class="button3" ng-click="addFungi()">Add Fungi</button>
     <button class="button4" ng-click="makeFriends()">Create Tree</button>
+    <button onclick="window.open('messenger.html')">Messenger</button>
     <button class="logout" ng-click="logout()">Logout</button>
     </div>
     <div class="info">
@@ -95,21 +96,6 @@
     	<div>
 		 	<img id="tree" width="100" height="100" src="tree1.png">
 		 </div>
-</div>
-
-<div ng-app="messenger" ng-controller="messengerController" ng-show="sharedVars.validUser">
-
-        <a href="#/send"> Send Message</a>
-        <a href="#/inbox"> Inbox </a><br /><br />
-
-        <input type="button" value="Send Message" id="sendMessage" ng-click="sendMessage()" />
-        <input type="button" value="Inbox" id="inbox" ng-click="inbox()" />
-
-        <div id="page-content" style="margin: 30px; padding: 30px; border: 3px solid #00ccff;">
-            <div ng-view="" />
-        </div>
-    </div>
-
 </div>
 
 
