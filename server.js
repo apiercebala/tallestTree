@@ -11,7 +11,6 @@ var Schema = mongoose.Schema;
 
 mongoose.connect('mongodb://glittersloth2:portfolio2319@ds149577.mlab.com:49577/portfolio2');
 
-
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
 //get css styles
@@ -150,41 +149,4 @@ app.post('/api/users/:username/update', function(req,res){
 	})
 });
 
-//create a tree and send all trng-hide="showlogin"ees
-app.post('/api/trees', function(req,res){
-	trees.create({
-		text : req.body.forest,
-		done : false
-	}, function(err,todo){
-		if(err){
-			res.send(err);
-		}
-
-		trees.find(function(err,trees){
-			if(err)
-				res.send(err)
-			res.json(trees);
-		});
-	});
-});
-
-//delete a tree
-app.delete('/api/trees/:trees_id', function(req,res){
-	trees.remove({
-		_id : req.params.todo_id
-	}, function(err,trees){
-		if(err)
-			res.send(err);
-
-		trees.find(function(err,todos){
-			if(err)
-				res.send(err)
-			res.json(trees);
-		});
-	});
-});
-
-// app.post(){
-
-// }
 
