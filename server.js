@@ -150,3 +150,65 @@ app.post('/api/users/:username/update', function(req,res){
 });
 
 
+app.post('/api/messages', function (req, res) {
+    var sender = req.body.sender;
+    var time = req.body.time;
+    var message = req.body.time;
+    var receiver = req.body.receiver;
+    messages.create({
+        sender: sender,
+        receiver: receiver,
+        time: time,
+        message: message,
+    }, function (err, todo) {
+        if (err) {
+            res.json({ "error": err });
+        }
+        //res.json({ "data": myUsername });
+    });
+});
+
+app.get('/api/messages', function (req, res) {
+    var receiver = req.body.receiver;
+    //var pass = req.body.password;
+    messages.find({ receiver: receiver }, function (err, user) {
+        if (err) {
+            res.json({ "error": err });
+        }
+        res.json({ "username": myUsername, "password": pass });
+    });
+});
+
+app.get('/api/users/:username/messages', function (req, res) {
+    var username = req.params.receiver;
+
+    user.find({ username: username }, function (err, users) {
+        var usr = users[0];
+        if (err) {
+            res.json({ "error": err });
+            return;
+        }
+        res.json({ "trees": usr.messages });
+    });
+});
+
+app.post('/api/users/:username/messages', function (req, res) {
+    var username = req.params.receiver;
+    var sender = req.body.sender;
+    var time = req.body.time;
+    var message = req.body.message;
+    user.find({ "username": username }, function (err, records) {
+        if (err) {
+            res.json({ "error": err });
+            return;
+        }
+        var users = records[0];
+        users.messages.push({ "sender": sender, "time": time, "message": message });
+        users.markModified('array');
+        users.save();
+        res.json({ "message": users.messages });
+    });
+
+});
+
+
