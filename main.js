@@ -1,15 +1,18 @@
 var app = angular.module('myGame',[]);
 	app.service('sharedVars',function(){
-		var postedUser = false;
-		var validUser = false;
+		var postedUser = true;
+		var validUser = true;
 		return {
-			postedUser: false,
+			postedUser: true,
 			totalTrees: 0,
-			validUser: false,
+			validUser: true,
 			currentUser: {
 				username: "user",
 				password: "password",
-				trees: []
+				trees: [],
+				fungi: 0,
+				water: 0,
+				sun: 0
 			},
 			updateVar: function(newValue){
 				return newValue;
@@ -57,6 +60,9 @@ var app = angular.module('myGame',[]);
 				sharedVars.currentUser.password = data.password;
 				sharedVars.currentUser.trees = data.trees;
 				sharedVars.totalTrees = sharedVars.currentUser.trees.length;
+				sharedVars.currentUser.fungi = data.fungi;
+				sharedVars.currentUser.water = data.water;
+				sharedVars.currentUser.sun = data.sun;
 
 				for (var i = 0; i < sharedVars.currentUser.trees.length; i++){
 					$scope.drawTree();
@@ -96,16 +102,19 @@ var app = angular.module('myGame',[]);
 			});
 		};
 
-		$scope.water = 100;
-		$scope.sun = 100;
+		$scope.water = $scope.sharedVars.currentUser.water;
+		$scope.sun = $scope.sharedVars.currentUser.sun;
 		$scope.addWater = function(num){
-						console.log($scope.sharedVars.totalTrees);
 			$scope.water += num;
+			console.log('sharedvars water:'+$scope.sharedVars.currentUser.water);
+			console.log('localscope water:'+$scope.water);
 		};
 		$scope.addSun = function(num){
 			$scope.sun += num;
+			console.log('sharedvars sun:'+$scope.sharedVars.currentUser.sun);
+			console.log('local scope sun:'+$scope.sun);
 		};
-		$scope.fungi = 1;
+		$scope.fungi = $scope.sharedVars.currentUser.fungi;
 		$scope.addFungi = function(){
 			if($scope.water > 10 && $scope.sun > 10){
 				var max = ($scope.water+$scope.sun)/10;
@@ -115,6 +124,8 @@ var app = angular.module('myGame',[]);
 			} else {
 				alert("Fungi help you grow, but food and water need to show.");
 			}
+			console.log('sharedvars fungi:'+$scope.sharedVars.currentUser.fungi);
+			console.log('local scope gungi:'+$scope.fungi);
 		};
 		$scope.load = function() {
 			canvas = document.getElementById("forest");
@@ -148,6 +159,7 @@ var app = angular.module('myGame',[]);
 		};
 
 		$scope.logout = function(){
+			$scope.updateUser();
 			$window.location.reload();
 		};
 

@@ -46,7 +46,10 @@ console.log("Server is listening to http://localhost/ on port "+PORT);
 var userSchema = new Schema({
 	username: String,
 	password: String,
-	trees: [{fungi: Number}]
+	trees: [{fungi: Number}],
+	fungi:Number,
+	water: Number,
+	sun: Number
 });
 
 var user = mongoose.model('User',userSchema);
@@ -143,6 +146,9 @@ app.post('/api/users/:username/update', function(req,res){
 		users.username = req.body.username;
 		users.password = req.body.password;
 		users.trees = req.body.trees;
+		users.fungi = req.body.fungi;
+		users.water = req.body.water;
+		users.sun = req.body.sun;
 
 		users.save();
 		res.json({"data": users});
