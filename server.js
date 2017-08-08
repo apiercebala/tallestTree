@@ -82,7 +82,7 @@ app.get('/api/users/:username', function(req, res) {
 			res.json({"error": "invalid passowrd"});
 			return;
 		}
-		res.json({"username": usr.username, "password": usr.password, "trees": usr.trees});
+		res.json({"username": usr.username, "password": usr.password, "trees": usr.trees, "fungi":usr.fungi, "water": usr.water, "sun":usr.sun});
 	});
 });
 
