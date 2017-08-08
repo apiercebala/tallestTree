@@ -143,6 +143,10 @@ app.post('/api/users/:username/update', function(req,res){
 			return;
 		}
 		var users = records[0];
+		users.fungi.push({"fungi":req.params.fungi});
+		users.water.push({"water":req.params.water});
+		user.sun.push({"sun":req.params.sun});
+
 		users.username = req.body.username;
 		users.password = req.body.password;
 		users.trees = req.body.trees;
