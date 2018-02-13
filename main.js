@@ -1,11 +1,11 @@
 var app = angular.module('myGame',[]);
 	app.service('sharedVars',function(){
-		var postedUser = true;
-		var validUser = true;
+		var postedUser = false;
+		var validUser = false;
 		return {
-			postedUser: true,
+			postedUser: false,
 			totalTrees: 0,
-			validUser: true,
+			validUser: false,
 			currentUser: {
 				username: "user",
 				password: "password",
