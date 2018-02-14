@@ -9,10 +9,7 @@ var app = angular.module('myGame',[]);
 			currentUser: {
 				username: "user",
 				password: "password",
-				trees: [],
-				fungi: 0,
-				water: 0,
-				sun: 0
+				trees: []
 			},
 			updateVar: function(newValue){
 				return newValue;
@@ -24,12 +21,10 @@ var app = angular.module('myGame',[]);
 
 		$scope.postedUser = sharedVars.postedUser;
 		$scope.validUser = sharedVars.validUser;
-		console.log($scope.currentUser);
 		$scope.signup = function(user){
 			var myData = "";
 			$http.post('/api/users',JSON.stringify(user)).success(function(data,status){
 				myData = data;
-				console.log(myData);
 				console.log("Post success!");
 				$scope.postedUser = true;
 			});
@@ -51,7 +46,6 @@ var app = angular.module('myGame',[]);
 			//get user input, compare to database info
 			$http.get('/api/users/'+user.Lname,config).success(function(data){
 				myLoginData = data;
-				console.log(myLoginData);
 				console.log("login successful");
 				$scope.validUser = true;
 				$scope.postedUser = false;
@@ -59,10 +53,7 @@ var app = angular.module('myGame',[]);
 				sharedVars.currentUser.username = data.username;
 				sharedVars.currentUser.password = data.password;
 				sharedVars.currentUser.trees = data.trees;
-				sharedVars.totalTrees = sharedVars.currentUser.trees.length;
-				sharedVars.currentUser.fungi = data.fungi;
-				sharedVars.currentUser.water = data.water;
-				sharedVars.currentUser.sun = data.sun;
+				sharedVars.totalTrees = data.trees.length;
 
 				for (var i = 0; i < sharedVars.currentUser.trees.length; i++){
 					$scope.drawTree();
@@ -102,19 +93,15 @@ var app = angular.module('myGame',[]);
 			});
 		};
 
-		$scope.water = $scope.sharedVars.currentUser.water;
-		$scope.sun = $scope.sharedVars.currentUser.sun;
+		$scope.water = 100;
+		$scope.sun = 100;
 		$scope.addWater = function(num){
 			$scope.water += num;
-			console.log('sharedvars water:'+$scope.sharedVars.currentUser.water);
-			console.log('localscope water:'+$scope.water);
 		};
 		$scope.addSun = function(num){
 			$scope.sun += num;
-			console.log('sharedvars sun:'+$scope.sharedVars.currentUser.sun);
-			console.log('local scope sun:'+$scope.sun);
 		};
-		$scope.fungi = $scope.sharedVars.currentUser.fungi;
+		$scope.fungi = 1;
 		$scope.addFungi = function(){
 			if($scope.water > 10 && $scope.sun > 10){
 				var max = ($scope.water+$scope.sun)/10;
@@ -124,8 +111,6 @@ var app = angular.module('myGame',[]);
 			} else {
 				alert("Fungi help you grow, but food and water need to show.");
 			}
-			console.log('sharedvars fungi:'+$scope.sharedVars.currentUser.fungi);
-			console.log('local scope gungi:'+$scope.fungi);
 		};
 		$scope.load = function() {
 			canvas = document.getElementById("forest");
@@ -164,10 +149,8 @@ var app = angular.module('myGame',[]);
 		};
 
 		$scope.addHealth = function(user,tree) {
-			console.log("sfdgfd");
 			tree.fungi += $scope.fungi;
 			$scope.fungi = 0;
-			console.log(tree.fungi);
 			$scope.updateUser();
 		};
 

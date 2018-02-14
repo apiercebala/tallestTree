@@ -46,10 +46,7 @@ console.log("Server is listening to http://localhost/ on port "+PORT);
 var userSchema = new Schema({
 	username: String,
 	password: String,
-	trees: [{fungi: Number}],
-	fungi:Number,
-	water: Number,
-	sun: Number
+	trees: [{fungi: Number}]
 });
 
 var user = mongoose.model('User',userSchema);
@@ -72,7 +69,6 @@ app.get('/api/users/:username', function(req, res) {
 
 	user.find({username: username},function(err, users){
 		var usr = users[0];
-		//console.log(usr);
 		if(err){
 			res.json({"error":err});
 			return;
@@ -82,7 +78,7 @@ app.get('/api/users/:username', function(req, res) {
 			res.json({"error": "invalid passowrd"});
 			return;
 		}
-		res.json({"username": usr.username, "password": usr.password, "trees": usr.trees, "fungi":usr.fungi, "water": usr.water, "sun":usr.sun});
+		res.json({"username": usr.username, "password": usr.password, "trees": usr.trees});
 	});
 });
 
@@ -136,23 +132,16 @@ app.post('/api/users/:username/trees', function(req, res) {
 
 app.post('/api/users/:username/update', function(req,res){
 	var username = req.params.username;
-	console.log(username);
 	user.find({"username":username},function(err,records){
 		if(err){
 			res.json({"error":err});
 			return;
 		}
 		var users = records[0];
-		users.fungi.push({"fungi":req.params.fungi});
-		users.water.push({"water":req.params.water});
-		user.sun.push({"sun":req.params.sun});
 
 		users.username = req.body.username;
 		users.password = req.body.password;
 		users.trees = req.body.trees;
-		users.fungi = req.body.fungi;
-		users.water = req.body.water;
-		users.sun = req.body.sun;
 
 		users.save();
 		res.json({"data": users});
