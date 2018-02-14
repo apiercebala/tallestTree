@@ -1,0 +1,22 @@
+index.html
+	79:directly updating service variable currentUser on the DOM
+
+	84-88: using ng-repeat to efficiently display all trees in the current user
+
+main.js
+	Lines 2-19: service method that is injected into the two controllers
+
+	Lines 49-64: signin function uses Mongoose find() to authorize login with data from MongoDB
+
+	Line 84: controller references service object, not just the values of service. This allows the controller to change the values of the service variables
+
+	Lines 154-160: addHealth fuction updates DOM elements and calls updateUser()
+
+	Lines 162-165: updateUser function uses Mongoose save() function to update entire user data
+
+server.js
+	contains all API methods used in main.js to make calls to data in MongoDB
+
+	46-50:Defines schema to be used by Mongoose
+
+	134-150: Uses save() in Mongoose to update entire user data

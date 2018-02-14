@@ -1,0 +1,48 @@
+Aimee Pierce:
+	Files
+		index.html
+		main.js
+		server.js - all except /api/message urls
+		package.json
+		addendum.txt
+
+	Functions
+		Sign in
+		Login
+		Logout
+		Save user session data
+		Tree list display
+		Add Health to tree display
+		All functions updating database information
+		Heroku Deployment
+
+	Write Up
+		Title Page
+		Table of Contents
+		Overview
+		New and Complex:
+			MongoDB
+			Mongoose
+			AngularJS Service Injection
+		Bloom's Taxonomy:
+			MongoDB
+			Node.js and Mongoose
+			Conclusion
+
+Lige Liu:
+	Files
+		login.css
+		inbox.html
+		index.html
+		Login.html
+		messenger.html
+		messenger.js
+
+	Functions
+		Messaging
+
+	Write Up
+		New and Complex:
+			AngularJS Routing
+		Bloom's Taxonomy:
+			AngularJS Routing
